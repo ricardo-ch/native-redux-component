@@ -2,11 +2,13 @@
   "name": "@ricardo-ch/native-redux-component",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "",
+  "description": "Redux native component provides a base component to watch your store and trigger rendering method without using react.",
   "main": "./dist/main.js",
   "scripts": {
+    "bundle": "webpack -p",
     "test": "npm run lint && mocha \"./src/**/*.spec.js\" --recursive --timeout 15000 --compilers js:babel-core/register",
-    "lint": "./node_modules/.bin/eslint \"./src/**/*.js\""
+    "lint": "./node_modules/.bin/eslint \"./src/**/*.js\"",
+    "build": "npm run bundle"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,9 @@
     "url": "https://github.com/ricardo-ch/native-redux-component/issues"
   },
   "homepage": "https://github.com/ricardo-ch/native-redux-component#readme",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.25.0",

@@ -27,6 +27,7 @@
       {
         "functions": false
       }
-    ]
+    ],
+    "no-new": "off"
   }
 }

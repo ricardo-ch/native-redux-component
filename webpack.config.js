@@ -3,7 +3,8 @@ const path = require('path')
 module.exports = {
   target: 'web',
   entry: {
-    main: './src/redux-component.js'
+    main: './src/redux-component.js',
+    demo: './demo/src/index.js'
   },
   output: {
     filename: '[name].js',

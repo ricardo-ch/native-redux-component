@@ -74,18 +74,20 @@ module.exports = class ReduxComponent {
   }
 
   /**
-  * Setup change events listeners
+  * Add an event listener on the element(s) specified by the selector the the event passed in parameter.
+  * When the event is triggered, if the target value is valid, it's dispatched with the redux action.
   *
+  * @param {string} [event='change'] event to listen to
   * @param {string} selector the dom selector of the element to listen to
   * @param {Function} actionCreator redux action creator
-  * @param {Function} [validate=(value) => { return value }] optional function to format/validate the value before dispatch it
+  * @param {Function} [validate=(value) => { return value }]
   */
-  initOnChangeEvent(selector, actionCreator, validate = (value) => { return value }) {
+  on(event = 'change', selector, actionCreator, validate = (value) => { return value }) {
     const items = document.querySelectorAll(selector)
     for (let i = 0; i < items.length; i += 1) {
-      items[i].addEventListener('change', (event) => {
-        event.preventDefault()
-        const value = validate(event.target.value)
+      items[i].addEventListener(event, (e) => {
+        e.preventDefault()
+        const value = validate(e.target.value)
         if (value) {
           this.dispatch(actionCreator(value))
         }

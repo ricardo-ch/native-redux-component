@@ -19,7 +19,27 @@ And cherry on the cake, the code is build with the [universal module definition]
 
 ## Usage
 
+Create a component listening and rendering a specific part of your app:
+```javascript
+class MyComponent extends ReduxComponent {
+  constructor(store) {
+    super(store, ['todos'])
+  }
+
+  render() {
+    // triggered each time 'todos' property of the state change
+    ...
+
+    // if needed dispatch a new change
+    this.dispatch(myAction(value))
+  }
+}
+```
+
 ## Demo
+
+A simple app to create toto tasks has been created in this repository.
+To use it, simply open `demo/src/index.html`in your favorite browser.
 
 ## License
 native-redux-component is licensed under the MIT license. (http://opensource.org/licenses/MIT)

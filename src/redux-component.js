@@ -1,6 +1,13 @@
 const _ = require('lodash')
 
 module.exports = class ReduxComponent {
+  /**
+   * Creates an instance of ReduxComponent.
+   *
+   * @param {object} store the redux store to listen to
+   * @param {string[]} [renderStateNames=[]] list of properties which trigger render method, if empty or no set, render method will be triggered each time the store is updated
+   * @param {string[]} [stateNames=[]] list of properties which are set when changed but do not trigger render
+   */
   constructor(store, renderStateNames = [], stateNames = []) {
     this.state = _.cloneDeep(store.getState())
     this.dispatch = store.dispatch
@@ -15,6 +22,15 @@ module.exports = class ReduxComponent {
     })
   }
 
+  /**
+   * Pre render step, to check if state (or state's property) changed.
+   * If it changed, it will set the new value to the component's state,
+   * and trigger render method.
+   *
+   * @param {object} newState the changed state
+   * @param {string} [name=null] optional - the property's name to watch / set
+   * @returns true if a property changed else false
+   */
   preRender(newState, name = null) {
     if (name === null && !_.isEqual(this.state, newState)) {
       this.state = _.cloneDeep(newState)
@@ -32,6 +48,12 @@ module.exports = class ReduxComponent {
     return false
   }
 
+  /**
+   * Set state's property by copying new state's one by its name
+   *
+   * @param {object} newState the changed state
+   * @param {string} name the property's name to set
+   */
   preSetState(newState, name) {
     const property = _.head(_.at(this.state, name))
     const newProperty = _.head(_.at(newState, name))
@@ -41,15 +63,22 @@ module.exports = class ReduxComponent {
     }
   }
 
+  /**
+   * Render method to be overridden by child class
+   * Triggered when the state (or a listened property of the state) change
+   */
   /* eslint class-methods-use-this:off */
+  /* eslint no-console:off */
   render() {
-    console.log('base component render() method must be overrided')
+    console.log('base component render() method must be overridden')
   }
 
   /**
   * Setup change events listeners
-  * @param {string} selector The id of the element
-  * @param {Function} actionCreator Redux action creator
+  *
+  * @param {string} selector the dom selector of the element to listen to
+  * @param {Function} actionCreator redux action creator
+  * @param {Function} [validate=(value) => { return value }] optional function to format/validate the value before dispatch it
   */
   initOnChangeEvent(selector, actionCreator, validate = (value) => { return value }) {
     const items = document.querySelectorAll(selector)

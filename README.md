@@ -2,7 +2,7 @@
 
 # native-redux-component
 
-Want to use redux without using react ? Redux Component is a native implementation of react component which permits to wath you state and trigger `render()` method of your child component whenever it changes.
+Want to use redux without using react ? Redux Component is a native implementation of react component which permits to watch your state and trigger `render()` method of your child component whenever it changes.
 
 It also has the ability to render only when parts of the state change.
 

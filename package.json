@@ -1,6 +1,6 @@
 {
   "name": "@ricardo-ch/native-redux-component",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "Redux native component provides a base component to watch your store and trigger rendering method without using react.",
   "main": "./dist/main.js",
